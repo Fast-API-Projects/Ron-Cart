@@ -2,14 +2,13 @@ from fastapi import Depends
 from fastapi import FastAPI, APIRouter
 from sqlalchemy.orm import Session
 
-from config.database import get_db, engine
-from db_model import product
+from config.database import get_db
 from repositories.product_repo import get_all_products, create_products, update_product_repo, delete_db_product
 from schema.product import Product, UpdateProduct
 
 app = FastAPI()
 
-product.Base.metadata.create_all(bind=engine)
+# product.Base.metadata.create_all(bind=engine)
 
 router = APIRouter(prefix="/product_cart", tags=["products"])
 
