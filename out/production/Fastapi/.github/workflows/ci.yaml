@@ -10,3 +10,9 @@ jobs:
     steps:
       - name: test run
         run: echo "testingggg....."
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repository
+        uses: actions/checkout@v4
