@@ -25,7 +25,7 @@ jobs:
       - name: install dependencies
         run: pip install -r requirements.txt
 
-      - name: to run pytest
-        run: pytest
+      - name: run ron cart fast api
+        run: uvicorn main:app --reload
 
 
