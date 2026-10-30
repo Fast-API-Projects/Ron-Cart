@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - main
+      - G_Nigga
 
 jobs:
   test:
