@@ -80,6 +80,20 @@ jobs:
             oc whoami
             oc project
 
+        - name: Diagnose OpenShift resources
+          run: |
+            echo "Current identity:"
+            oc whoami
+
+            echo "Current project:"
+            oc project
+
+            echo "Available deployments:"
+            oc get deployments -n speedrockets19-dev
+
+            echo "Deployment in current project:"
+            oc get deployment rony-cart-api
+
         - name: update deployment image
           run : |
             oc set image deployment/rony-cart-api \
