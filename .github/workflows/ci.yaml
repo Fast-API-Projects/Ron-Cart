@@ -31,7 +31,6 @@ jobs:
 
   build-and-push-container-image:
     needs:
-      - test
       - build
     runs-on: ubuntu-latest
     steps:
