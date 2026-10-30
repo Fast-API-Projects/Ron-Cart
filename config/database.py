@@ -2,7 +2,7 @@ from sqlalchemy import *
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 
-db_url = "postgresql+psycopg2://postgres:2212@localhost:5432/ron_cart"
+db_url = "postgresql+psycopg2://postgres:2212@postgresql:5432/ron_cart"
 
 engine = create_engine(db_url,echo=True)
 
