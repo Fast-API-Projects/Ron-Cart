@@ -89,10 +89,16 @@ jobs:
             oc project
 
             echo "Available deployments:"
-            oc get deployments -n speedrockets19-dev
+            oc get deployments
 
-            echo "Deployment in current project:"
-            oc get deployment rony-cart-api
+            echo "Checking rony-cart-api deployment:"
+            oc get deployment rony-cart-api --ignore-not-found
+
+            echo "Available services:"
+            oc get services
+
+            echo "Available routes:"
+            oc get routes
 
         - name: create or update deployment
           run : |
