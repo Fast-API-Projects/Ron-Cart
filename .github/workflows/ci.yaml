@@ -54,6 +54,45 @@ jobs:
           tags : |
             ${{ secrets.DOCKERHUB_USERNAME }}/ron-cart-api:latest
             ${{ secrets.DOCKERHUB_USERNAME }}/ron-cart-api:${{ github.sha }}
+            
+  deploy-to-openshift:
+      needs:
+        - build-and-push-container-image
+      runs-on: ubuntu-latest
+
+      steps:
+        - name : Install Openshift CLI
+          uses : redhat-actions/openshift-tools-installer@v1
+          with:
+            oc : 4
+
+        - name : login to Openshift
+          uses : redhat-actions/oc-login@v2
+          with:
+            openshift_server_url: ${{ secret.OPENSHIFT_SERVER }}
+            openshift_token: ${{ OPENSHIFT_TOKEN }}
+            namespace: ${{ OPENSHIFT_NAMESPACE }}
+
+        - name: verify openshift connection
+          run : |
+            oc whoami
+            oc project
+
+        - name: update deployment image
+          run : |
+            oc set image deployment/rony-cart-api \ ron-cart-api=docker.io/${{ secret.DOCKERHUB_USERNAME }}/ron-cart-api:${ GITHUB_SHA }
+
+        - name: wait for deployment rollout
+          run : |
+            oc rollout status deployment/rony-cart-api --timeout=180s
+
+        - name: verify deployment
+          run : |
+            oc get deployment rony-cart-api
+            oc get pods
+            oc get routeds
 
 
-
+            
+            
+            
