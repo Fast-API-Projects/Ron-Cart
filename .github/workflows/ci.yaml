@@ -80,6 +80,9 @@ jobs:
             oc whoami
             oc project
 
+        - name: create Openshift deployment
+          run : oc create deployment/rony-cart-api
+
         - name: update deployment image
           run : |
             oc set image deployment/rony-cart-api \
