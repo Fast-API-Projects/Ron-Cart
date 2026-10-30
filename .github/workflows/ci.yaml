@@ -70,8 +70,8 @@ jobs:
           uses : redhat-actions/oc-login@v2
           with:
             openshift_server_url: ${{ secret.OPENSHIFT_SERVER }}
-            openshift_token: ${{ OPENSHIFT_TOKEN }}
-            namespace: ${{ OPENSHIFT_NAMESPACE }}
+            openshift_token: ${{ secret.OPENSHIFT_TOKEN }}
+            namespace: ${{ secret.OPENSHIFT_NAMESPACE }}
 
         - name: verify openshift connection
           run : |
