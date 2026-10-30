@@ -90,7 +90,7 @@ jobs:
           run : |
             oc get deployment rony-cart-api
             oc get pods
-            oc get routeds
+            oc get routes
 
 
             
