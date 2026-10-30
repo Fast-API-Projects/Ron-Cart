@@ -80,7 +80,7 @@ jobs:
 
         - name: update deployment image
           run : |
-            oc set image deployment/rony-cart-api \ ron-cart-api=docker.io/${{ secret.DOCKERHUB_USERNAME }}/ron-cart-api:${ GITHUB_SHA }
+            oc set image deployment/rony-cart-api \ ron-cart-api=docker.io/${{ secrets.DOCKERHUB_USERNAME }}/ron-cart-api:${ GITHUB_SHA }
 
         - name: wait for deployment rollout
           run : |
