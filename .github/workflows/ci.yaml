@@ -94,10 +94,20 @@ jobs:
             echo "Deployment in current project:"
             oc get deployment rony-cart-api
 
-        - name: update deployment image
+        - name: create or update deployment
           run : |
-            oc set image deployment/rony-cart-api \
-            ron-cart-api=docker.io/${{ secrets.DOCKERHUB_USERNAME }}/ron-cart-api:${GITHUB_SHA}
+            IMAGE="docker.io/${{ secrets.DOCKERHUB_USERNAME }}/ron-cart-api:${{ github.sha }}"
+            
+            if oc get deployment rony-cart-api >/dev/null 2>&1; then
+              echo "Deployment exits updating image........"
+              oc set image deployment/rony-cart-api \
+              rony-cart-api="${IMAGE}"
+            else
+              echo "Deployment does not exist. Creating deployment........"
+              oc create deployment rony-cart-api \
+              --image="${IMAGE}" \
+              --port=8000
+            fi
 
         - name: wait for deployment rollout
           run : |
