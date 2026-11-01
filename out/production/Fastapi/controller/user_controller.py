@@ -1,7 +1,6 @@
 from fastapi import Depends, FastAPI, APIRouter
 from sqlalchemy.orm import Session
 
-from config.database import Base, engine
 from config.database import get_db
 from config.security import hash_password
 from repositories.user_repo import create_user, update_user_info, delete_user_info, get_all_user
@@ -9,7 +8,7 @@ from schema.user import UserCreate, User
 
 app = FastAPI()
 
-Base.metadata.create_all(bind=engine)
+# Base.metadata.create_all(bind=engine)
 
 router = APIRouter(prefix="/user_profile", tags=["user"])
 
