@@ -45,8 +45,8 @@ jobs:
           context: .
           push: true
           tags: |
-            {{ secrets.DOCKER_HUB_RONY_USERNAME }}/ron-cart:latest,
-            {{ secrets.DOCKER_HUB_RONY_USERNAME }}/ron-cart:${{ github.sha }}
+            ${{ secrets.DOCKER_HUB_RONY_USERNAME }}/ron-cart:latest
+            ${{ secrets.DOCKER_HUB_RONY_USERNAME }}/ron-cart:${{ github.sha }}
 
 
 
