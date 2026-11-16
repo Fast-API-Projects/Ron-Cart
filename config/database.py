@@ -1,21 +1,36 @@
-import os
 
-from sqlalchemy import *
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker, declarative_base
+from config.config import settings
 
-db_url = os.environ["DATABASE_URL"]
+db_url = settings.database_url
 
-engine = create_engine(db_url, echo=True)
+# Use Psycopg 3 driver
+if db_url.startswith("postgresql://"):
+    db_url = db_url.replace(
+        "postgresql://",
+        "postgresql+psycopg://",
+        1
+    )
 
-Session = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+engine = create_engine(
+    db_url,
+    echo=False,
+    pool_pre_ping=True,
+    connect_args={"sslmode": "require"}
+)
+
+SessionLocal = sessionmaker(
+    autocommit=False,
+    autoflush=False,
+    bind=engine
+)
 
 Base = declarative_base()
 
 
 def get_db():
-    db = Session()
-    # we need to close the session later
+    db = SessionLocal()
     try:
         yield db
     finally:
