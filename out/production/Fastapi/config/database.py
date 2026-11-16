@@ -1,20 +1,21 @@
-from sqlalchemy import *  
-from sqlalchemy.orm import sessionmaker
+import os
+
+from sqlalchemy import *
 from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
 
-db_url = "postgresql+psycopg2://postgres:2212@localhost:5432/ron_cart"
+db_url = os.environ["DATABASE_URL"]
 
-engine = create_engine(db_url,echo=True)
+engine = create_engine(db_url, echo=True)
 
-Session = sessionmaker(autocommit=False,autoflush=False,bind=engine)
+Session = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 Base = declarative_base()
 
 
-
 def get_db():
-    db=Session()
-    #we need to close the session later
+    db = Session()
+    # we need to close the session later
     try:
         yield db
     finally:
