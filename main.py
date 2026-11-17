@@ -1,12 +1,19 @@
-from fastapi import FastAPI
 
+from fastapi import FastAPI
+from config.database import Base, engine
+from db_model.product import Product
 from controller.auth import router as auth_router
 from controller.product_controller import router as product_router
 from controller.user_controller import router as user_router
 
-app = FastAPI(title="Ron Cart", description="vaango vandhu vaangitu pongo", version="1.0.0")
+app = FastAPI(
+    title="Ron Cart",
+    description="vaango vandhu vaangitu pongo",
+    version="1.0.0"
+)
 
-# product.Base.metadata.create_all(bind=engine)
+# Create database tables
+Base.metadata.create_all(bind=engine)
 
 app.include_router(product_router)
 app.include_router(user_router)
