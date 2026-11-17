@@ -7,5 +7,5 @@ class Product(Base):
     name = Column(String,nullable=False)
     description = Column(String)
     price = Column(Float,nullable=False)
-    quantity = Column(String,nullable=False)
+    quantity = Column(Integer, nullable=False)
 
